@@ -1,0 +1,27 @@
+module pinSwitch (
+    input clk,  // clock
+    input rst,  // reset
+    input bbPinSwitch, 
+    input tripData[8],
+    output pinSwitchData[8]
+  ) {
+  .clk(clk) {
+    pipeline bbPinSwitchSync(#DEPTH(3)); // synchronizing chain
+     
+    .rst(rst) {
+       dff pinSwitchBuff[8]; // our lovely counter
+    }
+  }
+
+  always {
+    bbPinSwitchSync.in = bbPinSwitch;
+    
+    pinSwitchData = pinSwitchBuff.q;
+    if (bbPinSwitchSync.out && (tripData == 0)) {
+      pinSwitchBuff.d = 1;
+    }
+    else {
+      pinSwitchBuff.d = 0;
+    }
+  }
+}

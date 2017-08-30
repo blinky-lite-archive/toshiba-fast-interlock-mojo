@@ -1,0 +1,36 @@
+module counter (
+    input clk,       // clock
+    input rst,       // reset
+    input reflPowTrip,    
+    input arcDetTrip, 
+    input bbReset, 
+    output count[8]  // press counter
+   ) {
+   
+  .clk(clk) {
+    edge_detector reflPowTripEdge(#RISE(1), #FALL(0)); 
+    edge_detector bbResetEdge(#RISE(1), #FALL(0)); 
+    
+    pipeline reflPowTripSync(#DEPTH(3));     
+    pipeline arcDetTripSync(#DEPTH(3));     
+    pipeline bbResetSync(#DEPTH(3)); // synchronizing chain
+    
+    .rst(rst) {
+       dff ctr[8]; // our lovely counter
+    }
+  }
+ 
+  always {
+    reflPowTripSync.in  = reflPowTrip;
+    arcDetTripSync.in   = arcDetTrip;
+    bbResetSync.in      = bbReset;
+    
+    reflPowTripEdge.in =  reflPowTripSync.out; 
+    bbResetEdge.in     =  bbResetSync.out; 
+    count = ctr.q;             // output the counter
+     
+    if ((reflPowTripEdge.out || reflPowTripSync.out) && (ctr.q < 1))  ctr.d = 1;       
+    if (arcDetTripSync.out  && (ctr.q < 1))  ctr.d = 2;       
+    if (bbResetEdge.out)                     ctr.d = 0;   
+  }
+}

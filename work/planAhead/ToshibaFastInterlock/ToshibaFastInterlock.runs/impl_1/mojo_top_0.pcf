@@ -1,0 +1,42 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Thu Jun 08 15:56:00 2017
+//! **************************************************************************
+
+SCHEMATIC START;
+CONFIG VCCAUX = "3.3";
+COMP "tripFlag" LOCATE = SITE "P66" LEVEL 1;
+COMP "reflTripLed" LOCATE = SITE "P127" LEVEL 1;
+COMP "spi_sck" LOCATE = SITE "P43" LEVEL 1;
+COMP "clk" LOCATE = SITE "P56" LEVEL 1;
+COMP "avr_rx_busy" LOCATE = SITE "P39" LEVEL 1;
+COMP "reflPowTrip" LOCATE = SITE "P121" LEVEL 1;
+COMP "spi_mosi" LOCATE = SITE "P44" LEVEL 1;
+COMP "pinSwitchLed" LOCATE = SITE "P123" LEVEL 1;
+COMP "led[1]" LOCATE = SITE "P133" LEVEL 1;
+COMP "led[2]" LOCATE = SITE "P132" LEVEL 1;
+COMP "spi_ss" LOCATE = SITE "P48" LEVEL 1;
+COMP "led[3]" LOCATE = SITE "P131" LEVEL 1;
+COMP "avr_tx" LOCATE = SITE "P55" LEVEL 1;
+COMP "pinSwitch" LOCATE = SITE "P124" LEVEL 1;
+COMP "rst_n" LOCATE = SITE "P38" LEVEL 1;
+COMP "bbReset" LOCATE = SITE "P57" LEVEL 1;
+COMP "tripType" LOCATE = SITE "P67" LEVEL 1;
+COMP "cclk" LOCATE = SITE "P70" LEVEL 1;
+COMP "arcDetTrip" LOCATE = SITE "P134" LEVEL 1;
+COMP "bbPinSwitch" LOCATE = SITE "P58" LEVEL 1;
+COMP "arcTripLed" LOCATE = SITE "P126" LEVEL 1;
+TIMEGRP clk = BEL "pinSwitchMod/M_pinSwitchBuff_q_0" BEL
+        "pinSwitchMod/bbPinSwitchSync/M_pipe_q_2" BEL
+        "pinSwitchMod/bbPinSwitchSync/Mshreg_M_pipe_q_2" BEL "clk_BUFGP/BUFG"
+        BEL "reset_cond/M_stage_q_3" BEL "reset_cond/M_stage_q_2" BEL
+        "reset_cond/M_stage_q_1" BEL "reset_cond/M_stage_q_0" BEL
+        "counter/M_ctr_q_FSM_FFd1" BEL "counter/M_ctr_q_FSM_FFd2" BEL
+        "counter/bbResetSync/M_pipe_q_2" BEL
+        "counter/bbResetSync/Mshreg_M_pipe_q_2" BEL
+        "counter/bbResetEdge/M_last_q" BEL "counter/arcDetTripSync/M_pipe_q_2"
+        BEL "counter/arcDetTripSync/Mshreg_M_pipe_q_2" BEL
+        "counter/reflPowTripSync/M_pipe_q_2" BEL
+        "counter/reflPowTripSync/Mshreg_M_pipe_q_2";
+TS_clk = PERIOD TIMEGRP "clk" 50 MHz HIGH 50%;
+SCHEMATIC END;
+
