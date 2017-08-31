@@ -13,11 +13,14 @@ module mojo_top (
     input avr_rx_busy,       // AVR RX buffer full
     input reflPowTrip,
     input arcDetTrip,
+    input aftArcTrip,
     input bbReset,
     input bbPinSwitch,
     output tripFlag,
     output tripType,
+    output arcTripType,
     output arcTripLed,
+    output aftArcLed,
     output reflTripLed,
     output pinSwitch,
     output pinSwitchLed
@@ -46,6 +49,7 @@ module mojo_top (
     
     counter.reflPowTrip =  reflPowTrip;
     counter.arcDetTrip  =  arcDetTrip;
+    counter.aftArcTrip  =  aftArcTrip;
     counter.bbReset     =  bbReset;
     pinSwitchMod.bbPinSwitch = bbPinSwitch;
     pinSwitchMod.tripData = counter.count;
@@ -57,10 +61,11 @@ module mojo_top (
     }
     
     case (counter.count) {
-      0: tripFlag = 0; tripType = 0; arcTripLed = 0; reflTripLed = 0;
-      1: tripFlag = 1; tripType = 0; arcTripLed = 0; reflTripLed = 1;
-      2: tripFlag = 1; tripType = 1; arcTripLed = 1; reflTripLed = 0;
-     default: tripFlag = 0; tripType = 0; arcTripLed = 0; reflTripLed = 0;
+      0: tripFlag = 0; tripType = 0; arcTripLed = 0; reflTripLed = 0; aftArcLed = 0; arcTripType = 0;
+      1: tripFlag = 1; tripType = 0; arcTripLed = 0; reflTripLed = 1; aftArcLed = 0; arcTripType = 0;
+      2: tripFlag = 1; tripType = 1; arcTripLed = 1; reflTripLed = 0; aftArcLed = 0; arcTripType = 0;
+      4: tripFlag = 1; tripType = 1; arcTripLed = 0; reflTripLed = 0; aftArcLed = 1; arcTripType = 1;
+     default: tripFlag = 0; tripType = 0; arcTripLed = 0; reflTripLed = 0; aftArcLed = 0; arcTripType = 0;
     }
     led = counter.count;
   }

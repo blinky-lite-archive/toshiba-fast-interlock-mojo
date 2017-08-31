@@ -2,15 +2,15 @@
 <DARoots Version="1" Minor="26">
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
     <Filter Type="Constrs"/>
-    <File Path="$PSRCDIR/constrs_1/imports/mojo/ToshibaFastInterlock/constraint/custom.ucf">
+    <File Path="$PSRCDIR/constrs_1/imports/Dropbox/gitRepositories/toshiba-fast-interlock-mojo/constraint/custom.ucf">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../constraint/custom.ucf"/>
-        <Attr Name="ImportTime" Val="1496930131"/>
+        <Attr Name="ImportTime" Val="1504170940"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/constrs_1/imports/mojo/ide-B1.3.6/library/components/mojo.ucf">
+    <File Path="$PSRCDIR/constrs_1/imports/Dropbox/mojo-ide-B1.3.6/library/components/mojo.ucf">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../../../mojo-ide-B1.3.6/library/components/mojo.ucf"/>
         <Attr Name="ImportTime" Val="1477337389"/>

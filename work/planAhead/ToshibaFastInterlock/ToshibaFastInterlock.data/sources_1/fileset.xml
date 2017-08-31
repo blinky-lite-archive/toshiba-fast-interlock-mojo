@@ -5,7 +5,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/pipeline_6.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/pipeline_6.v"/>
-        <Attr Name="ImportTime" Val="1496930135"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -14,7 +14,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/edge_detector_4.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/edge_detector_4.v"/>
-        <Attr Name="ImportTime" Val="1496930134"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -23,7 +23,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/reset_conditioner_1.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/reset_conditioner_1.v"/>
-        <Attr Name="ImportTime" Val="1496930134"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -32,7 +32,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/pinSwitch_3.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/pinSwitch_3.v"/>
-        <Attr Name="ImportTime" Val="1496930134"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -41,7 +41,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/counter_2.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/counter_2.v"/>
-        <Attr Name="ImportTime" Val="1496930134"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -50,7 +50,7 @@
     <File Path="$PSRCDIR/sources_1/imports/verilog/mojo_top_0.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../verilog/mojo_top_0.v"/>
-        <Attr Name="ImportTime" Val="1496930134"/>
+        <Attr Name="ImportTime" Val="1504172200"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>

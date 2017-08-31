@@ -4,6 +4,7 @@ module counter (
     input reflPowTrip,    
     input arcDetTrip, 
     input bbReset, 
+    input aftArcTrip,
     output count[8]  // press counter
    ) {
    
@@ -14,6 +15,7 @@ module counter (
     pipeline reflPowTripSync(#DEPTH(3));     
     pipeline arcDetTripSync(#DEPTH(3));     
     pipeline bbResetSync(#DEPTH(3)); // synchronizing chain
+    pipeline aftArcTripSync(#DEPTH(3)); // synchronizing chain
     
     .rst(rst) {
        dff ctr[8]; // our lovely counter
@@ -24,13 +26,15 @@ module counter (
     reflPowTripSync.in  = reflPowTrip;
     arcDetTripSync.in   = arcDetTrip;
     bbResetSync.in      = bbReset;
+    aftArcTripSync.in   = aftArcTrip;
     
     reflPowTripEdge.in =  reflPowTripSync.out; 
     bbResetEdge.in     =  bbResetSync.out; 
     count = ctr.q;             // output the counter
      
     if ((reflPowTripEdge.out || reflPowTripSync.out) && (ctr.q < 1))  ctr.d = 1;       
-    if (arcDetTripSync.out  && (ctr.q < 1))  ctr.d = 2;       
-    if (bbResetEdge.out)                     ctr.d = 0;   
+    if (arcDetTripSync.out   && (ctr.q < 1))  ctr.d = 2;       
+    if (!aftArcTripSync.out  && (ctr.q < 1))  ctr.d = 4;       
+    if (bbResetEdge.out)                      ctr.d = 0;   
   }
 }

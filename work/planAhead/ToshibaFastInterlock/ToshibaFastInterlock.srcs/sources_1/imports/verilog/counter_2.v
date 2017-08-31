@@ -10,6 +10,7 @@ module counter_2 (
     input reflPowTrip,
     input arcDetTrip,
     input bbReset,
+    input aftArcTrip,
     output reg [7:0] count
   );
   
@@ -50,6 +51,13 @@ module counter_2 (
     .in(M_bbResetSync_in),
     .out(M_bbResetSync_out)
   );
+  wire [1-1:0] M_aftArcTripSync_out;
+  reg [1-1:0] M_aftArcTripSync_in;
+  pipeline_6 aftArcTripSync (
+    .clk(clk),
+    .in(M_aftArcTripSync_in),
+    .out(M_aftArcTripSync_out)
+  );
   reg [7:0] M_ctr_d, M_ctr_q = 1'h0;
   
   always @* begin
@@ -58,6 +66,7 @@ module counter_2 (
     M_reflPowTripSync_in = reflPowTrip;
     M_arcDetTripSync_in = arcDetTrip;
     M_bbResetSync_in = bbReset;
+    M_aftArcTripSync_in = aftArcTrip;
     M_reflPowTripEdge_in = M_reflPowTripSync_out;
     M_bbResetEdge_in = M_bbResetSync_out;
     count = M_ctr_q;
@@ -66,6 +75,9 @@ module counter_2 (
     end
     if (M_arcDetTripSync_out && (M_ctr_q < 1'h1)) begin
       M_ctr_d = 2'h2;
+    end
+    if (!M_aftArcTripSync_out && (M_ctr_q < 1'h1)) begin
+      M_ctr_d = 3'h4;
     end
     if (M_bbResetEdge_out) begin
       M_ctr_d = 1'h0;

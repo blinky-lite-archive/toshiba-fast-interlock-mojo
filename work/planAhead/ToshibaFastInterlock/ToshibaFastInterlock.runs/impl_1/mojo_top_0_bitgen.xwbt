@@ -1,8 +1,8 @@
 INTSTYLE=pa
-INFILE=/home/dmcginnis427/Dropbox/mojo/ToshibaFastInterlock/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1/mojo_top_0_routed.ncd
-OUTFILE=/home/dmcginnis427/Dropbox/mojo/ToshibaFastInterlock/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1/mojo_top_0.bit
+INFILE=/home/dmcginnis427/Dropbox/gitRepositories/toshiba-fast-interlock-mojo/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1/mojo_top_0_routed.ncd
+OUTFILE=/home/dmcginnis427/Dropbox/gitRepositories/toshiba-fast-interlock-mojo/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1/mojo_top_0.bit
 FAMILY=Spartan6
 PART=xc6slx9-2tqg144
-WORKINGDIR=/home/dmcginnis427/Dropbox/mojo/ToshibaFastInterlock/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1
+WORKINGDIR=/home/dmcginnis427/Dropbox/gitRepositories/toshiba-fast-interlock-mojo/work/planAhead/ToshibaFastInterlock/ToshibaFastInterlock.runs/impl_1
 LICENSE=WebPack
 USER_INFO=211356061_0_0_415

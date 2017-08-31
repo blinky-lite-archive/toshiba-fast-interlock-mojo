@@ -1,7 +1,9 @@
+NET "aftArcTrip"   LOC = P50  | IOSTANDARD = LVTTL;
 NET "bbReset"      LOC = P57  | IOSTANDARD = LVTTL;
 NET "bbPinSwitch"  LOC = P58  | IOSTANDARD = LVTTL;
 NET "tripFlag"     LOC = P66  | IOSTANDARD = LVTTL;
 NET "tripType"     LOC = P67  | IOSTANDARD = LVTTL;
+NET "arcTripType"  LOC = P75  | IOSTANDARD = LVTTL;
 NET "reflPowTrip"  LOC = P121 | IOSTANDARD = LVTTL;
 NET "pinSwitchLed" LOC = P123 | IOSTANDARD = LVTTL;
 NET "pinSwitch"    LOC = P124 | IOSTANDARD = LVTTL;
@@ -10,3 +12,4 @@ NET "reflTripLed"  LOC = P127 | IOSTANDARD = LVTTL;
 NET "okOutToPlc"   LOC = P132 | IOSTANDARD = LVTTL;
 NET "arcDetTrip"   LOC = P134 | IOSTANDARD = LVTTL;
 NET "okFromPlc"    LOC = P138 | IOSTANDARD = LVTTL;
+NET "aftArcLed"    LOC = P140 | IOSTANDARD = LVTTL;

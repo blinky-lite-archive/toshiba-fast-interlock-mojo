@@ -19,11 +19,14 @@ module mojo_top_0 (
     input avr_rx_busy,
     input reflPowTrip,
     input arcDetTrip,
+    input aftArcTrip,
     input bbReset,
     input bbPinSwitch,
     output reg tripFlag,
     output reg tripType,
+    output reg arcTripType,
     output reg arcTripLed,
+    output reg aftArcLed,
     output reg reflTripLed,
     output reg pinSwitch,
     output reg pinSwitchLed
@@ -44,12 +47,14 @@ module mojo_top_0 (
   reg [1-1:0] M_counter_reflPowTrip;
   reg [1-1:0] M_counter_arcDetTrip;
   reg [1-1:0] M_counter_bbReset;
+  reg [1-1:0] M_counter_aftArcTrip;
   counter_2 counter (
     .clk(clk),
     .rst(rst),
     .reflPowTrip(M_counter_reflPowTrip),
     .arcDetTrip(M_counter_arcDetTrip),
     .bbReset(M_counter_bbReset),
+    .aftArcTrip(M_counter_aftArcTrip),
     .count(M_counter_count)
   );
   wire [8-1:0] M_pinSwitchMod_pinSwitchData;
@@ -71,6 +76,7 @@ module mojo_top_0 (
     avr_rx = 1'bz;
     M_counter_reflPowTrip = reflPowTrip;
     M_counter_arcDetTrip = arcDetTrip;
+    M_counter_aftArcTrip = aftArcTrip;
     M_counter_bbReset = bbReset;
     M_pinSwitchMod_bbPinSwitch = bbPinSwitch;
     M_pinSwitchMod_tripData = M_counter_count;
@@ -96,24 +102,40 @@ module mojo_top_0 (
         tripType = 1'h0;
         arcTripLed = 1'h0;
         reflTripLed = 1'h0;
+        aftArcLed = 1'h0;
+        arcTripType = 1'h0;
       end
       1'h1: begin
         tripFlag = 1'h1;
         tripType = 1'h0;
         arcTripLed = 1'h0;
         reflTripLed = 1'h1;
+        aftArcLed = 1'h0;
+        arcTripType = 1'h0;
       end
       2'h2: begin
         tripFlag = 1'h1;
         tripType = 1'h1;
         arcTripLed = 1'h1;
         reflTripLed = 1'h0;
+        aftArcLed = 1'h0;
+        arcTripType = 1'h0;
+      end
+      3'h4: begin
+        tripFlag = 1'h1;
+        tripType = 1'h1;
+        arcTripLed = 1'h0;
+        reflTripLed = 1'h0;
+        aftArcLed = 1'h1;
+        arcTripType = 1'h1;
       end
       default: begin
         tripFlag = 1'h0;
         tripType = 1'h0;
         arcTripLed = 1'h0;
         reflTripLed = 1'h0;
+        aftArcLed = 1'h0;
+        arcTripType = 1'h0;
       end
     endcase
     led = M_counter_count;
