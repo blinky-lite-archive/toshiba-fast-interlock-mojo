@@ -12,6 +12,13 @@ var bbBootLedPin = 'P8_18';
 var reflPowLvl = 0.143;
 var pinSwitchState = "OFF";
 var blinkLightOn = false;
+var gabby = true;
+var mqttObjReadings = {};
+var tripCounter = 0;
+var tripcounterTimeArray = [new Date().getTime()];
+var tripcounterTimeArrayMaxSize = 10;
+var tripRate = 0;
+var tripDate = tripcounterTimeArray[0];
 
 b.pinMode(reflPowLvlPwmPin, b.ANALOG_OUTPUT);
 b.pinMode(resetPin, b.OUTPUT);
@@ -21,25 +28,27 @@ b.pinMode(tripTypePin, b.INPUT);
 b.pinMode(arcTripTypePin, b.INPUT);
 b.attachInterrupt(tripPin, true, b.RISING, handleTrip);
 b.pinMode(bbBootLedPin, b.OUTPUT);
-
-var subscribeTopics = "toshibaFastInterlock/set";
+var subscribeTopics = "toshibaFastInterlock/#";
 var publishTopics   = "toshibaFastInterlock/get";
 
 client.on ('connect', function () {subscribeToTopics();})
 client.on('message', function (topic, message) {newMessage(topic, message);})
 setInterval(blinky, 1000);
+setInterval(updateReadings, 10000);
 
 function subscribeToTopics()
 {
-    client.subscribe(subscribeTopics); 
-    console.log('Subscribing to: ' + subscribeTopics);
+    client.subscribe("toshibaFastInterlock/set"); 
+    console.log('Subscribing to: ' + "toshibaFastInterlock/set");
+    client.subscribe('toshibaFastInterlock/status'); 
+    console.log('Subscribing to: ' + 'toshibaFastInterlock/status');
     intIoc();
 }
 
 function newMessage(topic, message) 
 {
-  console.log("Topic = " + topic + " Message = " + message.toString());
-  if (subscribeTopics.localeCompare(topic) == 0)
+  if (gabby) console.log("Topic = " + topic + " Message = " + message.toString());
+  if (topic == "toshibaFastInterlock/set")
   {
       var objJSON = JSON.parse(message.toString());
       if (!("undefined" === typeof objJSON.reflPowLvl))
@@ -73,6 +82,10 @@ function newMessage(topic, message)
       }
       updateReadings();
   }
+  if (topic == 'toshibaFastInterlock/status')
+  {
+      client.publish('toshibaFastInterlock/echo', JSON.stringify(mqttObjReadings));
+  }
 }
 
 function updateReadings()
@@ -89,9 +102,9 @@ function updateReadings()
             if (b.digitalRead(arcTripTypePin) == b.HIGH)  tripType = "aftDet";
         }
     }
-    var mqttObj = {"reflPowLvl":reflPowLvl.toString(), "pinSwitch":pinSwitchState, "trip":tripVal, "tripType":tripType};
-    console.log('Publishing to: ' + publishTopics + ' ' + JSON.stringify(mqttObj));
-    client.publish(publishTopics, JSON.stringify(mqttObj));
+    mqttObjReadings = {"reflPowLvl":reflPowLvl.toString(), "pinSwitch":pinSwitchState, "trip":tripVal, "tripType":tripType, 'tripCounter':tripCounter.toString(), 'tripRate':tripRate.toString(), 'tripDate':tripDate.toString()};
+    if (gabby) console.log('Publishing to: ' + publishTopics + ' ' + JSON.stringify(mqttObjReadings));
+    client.publish(publishTopics, JSON.stringify(mqttObjReadings));
 }
 
 function intIoc()
@@ -103,7 +116,6 @@ function intIoc()
     b.digitalWrite(pinSwitchControlPin, b.LOW);
     pinSwitchState = "OFF";
     b.digitalWrite(bbBootLedPin, b.HIGH);
-    updateReadings();
 }
 
 function handleTrip()
@@ -113,6 +125,14 @@ function handleTrip()
         b.digitalWrite(pinSwitchControlPin, b.LOW);
         pinSwitchState = "OFF";
     }
+    tripCounter = tripCounter + 1;
+    tripDate = new Date().getTime();
+    tripcounterTimeArray.push(tripDate);
+    if (tripcounterTimeArray.length > tripcounterTimeArrayMaxSize) tripcounterTimeArray.splice(0,1);
+    tripRate = (tripcounterTimeArray[tripcounterTimeArray.length - 1] - tripcounterTimeArray[0]) / 3600000.0;
+    tripRate = Math.round(100.0* tripcounterTimeArray.length / tripRate) / 100;
+//    console.log('Trip count = ' + tripCounter + ' Trip rate = ' + tripRate);
+    
     updateReadings();
 }
 
